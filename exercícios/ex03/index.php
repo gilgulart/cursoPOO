@@ -11,8 +11,8 @@
 
 <body>
 
-<h1>Aula e Presença</h1>
-<h2>Aula normal: o professor e os alunos estavam presentes</h2>
+    <h1>Aula e Presença</h1>
+    <h2>Aula normal: o professor e os alunos estavam presentes</h2>
 
     <?php 
     require_once "lesson.php" ;
@@ -23,7 +23,7 @@
     $lesson -> studentPresent() ;
     ?>
 
-<h2>O professor precis ou descansar</h2>
+    <h2>O professor precis ou descansar</h2>
 
     <?php 
     $noLesson = new lesson ;
@@ -31,7 +31,7 @@
     $noLesson -> teacherPresent() ;
     ?>
 
-<h2>O aluno faltou</h2>
+    <h2>O aluno faltou</h2>
 
     <?php 
     $ausent = new lesson ;
@@ -39,7 +39,7 @@
     $ausent -> studentPresent() ;
     ?>
 
-<h2>Os alunos mataram aula</h2>
+    <h2>Os alunos mataram aula</h2>
 
     <?php 
     $skipLesson = new lesson ;
