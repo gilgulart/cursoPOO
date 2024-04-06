@@ -60,6 +60,19 @@ class Account{
             echo "Depósito de R\$ {$amount} realizado com sucesso. Seu novo saldo é: R\$ {$this->balance}\n";
         } else {
             echo "Valor de depósito inválido.\n";
+        } if ($this->status = false) {
+            echo "Sua conta está fechada no momento, pague sua mensalidade para habilitar os depósitos" ;
         }
+     }
+     public function withdraw($withdraw) {
+        if ($withdraw > 0) {
+            if ($this->type === "Corrente"){
+                $this->balance -= $withdraw ;
+                echo "Você sacou R\$ {$withdraw}. Seu saldo atual é de {($this->balance + 50) - $withdraw} " ; 
+            } else {
+                echo "Você sacou R\$ {$withdraw}. Seu saldo atual é de {($this->balance + 150) - $withdraw} " ; 
+            }
+        }
+        
      }
 }

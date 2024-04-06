@@ -49,33 +49,65 @@
             echo "<button type='submit'>Depositar</button>";
             echo "</form>";
         }
-    
+        
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['owner']) && isset($_POST['numberAccount'])) {
-            $numberAccount = $_POST['numberAccount'];
-            $owner = $_POST['owner'];
-            if ($owner === "Jubileo" && $numberAccount == $jubileo->numberAccount) {
-                $jubileo->activateAccount();
-                echo "<p>Senhor Jubileo, sua conta {$jubileo->getType()} número {$jubileo->numberAccount} tem saldo: R$ {$jubileo->getBalance()}</p>";
-                renderDepositForm("Jubileo");
-             } elseif ($owner === "Creuza" && $numberAccount == $creuza->numberAccount) {
-                $creuza->activateAccount();
-                echo "<p>Senhora Creuza, sua Conta {$creuza->getType()} número {$creuza->numberAccount} tem saldo: R$ {$creuza->getBalance()}</p>";
-                renderDepositForm("Creuza");
-             } else {
-                echo "<p>Usuário ou número de conta inválido</p>";
-             }
+             $numberAccount = $_POST['numberAccount'];
+             $owner = $_POST['owner'];
+        if ($owner === "Jubileo" && $numberAccount == $jubileo->numberAccount) {
+             $jubileo->activateAccount();
+             echo "<p>Senhor Jubileo, sua conta {$jubileo->getType()} número {$jubileo->numberAccount} tem saldo: R$ {$jubileo->getBalance()}</p>";
+             renderDepositForm("Jubileo");
+                 } elseif ($owner === "Creuza" && $numberAccount == $creuza->numberAccount) {
+                    $creuza->activateAccount();
+                    echo "<p>Senhora Creuza, sua Conta {$creuza->getType()} número {$creuza->numberAccount} tem saldo: R$ {$creuza->getBalance()}</p>";
+             renderDepositForm("Creuza");
+                 } else {
+                   echo "<p>Usuário ou número de conta inválido</p>";
+                 }
         }
-    
+        
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['depositAmount'])) {
             $selectedAccount = $_POST['accountType'];
             $depositAmount = $_POST['depositAmount'];
             if ($selectedAccount === "Jubileo") {
                 $jubileo->deposit($depositAmount);
-             } else{
+            } else{
                 $creuza->deposit($depositAmount);
-             }
+            }
         }
-    ?>
+
+        function renderWithdrawForm($accountType) {
+        echo "<form action='{$_SERVER['PHP_SELF']}' method='post'>" ;
+            echo "<input type='hidden' name='accountType' value='$accountType'>" ;
+            echo "<input type='number' name='withdraw' placeholder='Valor a sacar'>";
+            echo "<button type='submit'>Sacar</button>";
+            echo "</form>";
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['owner']) && isset($_POST['numberAccount'])) {
+             $numberAccount = $_POST['numberAccount'];
+             $owner = $_POST['owner'];
+        if ($owner === "Jubileo" && $numberAccount == $jubileo->numberAccount) {
+             $jubileo->withdraw();
+             renderWithdrawForm("Jubileo");
+                 } elseif ($owner === "Creuza" && $numberAccount == $creuza->numberAccount) {
+                    $creuza->withdraw();
+             renderWithdrawForm("Creuza");
+                 } else {
+                   echo "<p>Usuário ou número de conta inválido</p>";
+                 }
+        }
+        }
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['depositAmount'])) {
+            $selectedAccount = $_POST['accountType'];
+            $withdraw = $_POST['withdraw'];
+            if ($selectedAccount === "Jubileo") {
+                $jubileo->withdraw($withdraw);
+            } else{
+                $creuza->withdraw($withdraw);
+            }
+        }
+        
+        ?>
 
     </section>
 </body>
